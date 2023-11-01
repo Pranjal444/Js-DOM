@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MASAI CALCULATOR GRID</title>
+    <style>
+        h1{
+            text-align: center;
+            color: green;
+        }
+        #mainbox{
+            width: 300px;
+            /* height: 400px; */
+            border-radius: 8px;
+            margin: auto;
+            padding: 30px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            gap: 10px 10px;
+            margin-bottom: 100px;
+        }
+        #mainbox>div{
+            
+            border-radius: 5px;
+            /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+        }
+        #mainbox>div>button{
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            border: none;
+            overflow: hidden;
+            background-color: transparent;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        #mainbox>div>:hover{
+            background-color: yellow;
+        }
+        #mainbox>div>:active{
+            background-color: red;
+        }
+        .bgblack{
+            background-color: black;
+        }
+        .fntcolor{color: white;}
+        .bgred{
+            background-color: red;
+        }
+        #mainbox > div:nth-child(1){
+            text-align:right;
+            font-size:3rem;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <h1>Masai Calculator</h1>
+
+    <div id="mainbox">
+        <div style="grid-column: 1 / -1;"></div>
+        <!-- <div></div>
+        <div></div> -->
+        <!-- <div></div> -->
+        <div><button class="digit">1</button></div>
+        <div><button class="digit">2</button></div>
+        <div><button class="digit">3</button></div>
+        <div class="bgblack oprt"><button class="fntcolor">+</button></div>
+        <div><button class="digit">4</button></div>
+        <div><button class="digit">5</button></div>
+        <div><button class="digit">6</button></div>
+        <div class="bgblack oprt"><button class="fntcolor">-</button></div>
+        <div><button class="digit">7</button></div>
+        <div><button class="digit">8</button></div>        
+        <div><button class="digit">9</button></div>
+        <div class="bgblack oprt"><button class="fntcolor">x</button></div>
+        <div class="bgred"><button class="fntcolor" id="clr">C</button></div>
+        <div><button class="digit">0</button></div>
+        <div class="bgblack"><button class="fntcolor" id="eql">=</button></div>
+        <div class="bgblack oprt"><button class="fntcolor">/</button></div>
+        
+    </div>
+
+
+
+
+</body>
+<script>
+    // This is for storing the vlaue into the two diferent defirent variable
+    let diplscreen = document.querySelector("#mainbox > div:nth-child(1)")
+    let firstValue = "";
+    let firstValueComplet = false;
+    let secondValue = "";
+    let operationApply = "";
+    let previusOperationApply = "";
+    let digiButton = document.getElementsByClassName("digit");
+    for(let i=0; i<digiButton.length; i++){
+        digiButton[i].addEventListener("click", function (){
+            console.log(digiButton[i].innerText);
+            if (firstValueComplet==false){
+                firstValue += digiButton[i].innerText;
+                diplscreen.innerText = firstValue;
+            }else{
+                secondValue += digiButton[i].innerText;
+                diplscreen.innerText = secondValue;
+            }
+        })
+    }
+
+    // This is for operation
+    let oprButton = document.getElementsByClassName("oprt");
+    for(let j=0; j<oprButton.length; j++){
+        oprButton[j].addEventListener("click", function (){
+            console.log(oprButton[j].innerText);
+            firstValueComplet = true;
+            operationApply = oprButton[j].innerText;
+
+            // This code for multple value or operation
+            switch(previusOperationApply){
+            case "+":
+                firstValue = Number(firstValue) + Number(secondValue);
+                diplscreen.innerText = firstValue;
+                secondValue = "";
+                break;
+            case "-":
+                firstValue = Number(firstValue) - Number(secondValue);
+                diplscreen.innerText = firstValue;
+                secondValue = "";
+                break;
+            case "*":
+                firstValue = Number(firstValue) * Number(secondValue);
+                diplscreen.innerText = firstValue;
+                secondValue = "";
+                break;
+            case "/":
+                firstValue = Number(firstValue) / Number(secondValue);
+                diplscreen.innerText = firstValue;
+                secondValue = "";
+                break;
+        }
+        previusOperationApply = operationApply;
+        })
+    }
+
+    // Taking action
+    let equalBtn = document.getElementById("eql");
+    equalBtn.addEventListener("click", function (){
+
+        switch(operationApply){
+            case "+":
+                firstValue = Number(firstValue) + Number(secondValue);
+                diplscreen.innerText = firstValue;
+                operationApply = "";
+                break;
+            case "-":
+                firstValue = Number(firstValue) - Number(secondValue);
+                diplscreen.innerText = firstValue;
+                operationApply = "";
+                break;
+            case "*":
+                firstValue = Number(firstValue) * Number(secondValue);
+                diplscreen.innerText = firstValue;
+                operationApply = "";
+                break;
+            case "/":
+                firstValue = Number(firstValue) / Number(secondValue);
+                diplscreen.innerText = firstValue;
+                operationApply = "";
+                break;
+        }
+    })
+
+    // Clear the screen
+    let clearBtn = document.getElementById("clr");
+    clearBtn.addEventListener("click", function (){
+        firstValue = "";
+        firstValueComplet = false;
+        secondValue = "";
+        operationApply = "";
+        previusOperationApply = "";
+        diplscreen.innerText = "";
+    })
+
+</script>
+</html>

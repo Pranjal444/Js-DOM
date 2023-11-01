@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Events</title>
+  </head>
+  <body>
+    <img
+      id="myImage"
+      src="https://miro.medium.com/max/1400/1*mdcu3Ku9r44HMtraHUqu5g.jpeg"
+      alt=""
+    />
+  </body>
+</html>
+<script>
+  const image = document.getElementById('myImage');
+  image.addEventListener('click', function() {
+    const confirmation = confirm("The website you are going to visit may harm your computer. Do you still want to redirect?");
+    if (confirmation) {
+      // You can redirect the user to another page here
+      // Example: window.location.href = 'https://www.example.com';
+    }
+  });
+</script>
